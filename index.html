@@ -1,145 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <head>
-    <title>Simple Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exponential Decay Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
 
-        #quiz-container {
-            max-width: 400px;
+        #container {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
             padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
         }
 
-        .question {
-            margin-bottom: 10px;
-            font-weight: bold;
+        #guess-container {
+            margin: 20px 0;
         }
 
-        .answer {
-            margin-bottom: 20px;
+        #guess {
+            padding: 10px;
+            font-size: 18px;
         }
 
-        #score-container {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        button {
+        #check-button {
             padding: 10px 20px;
-            background-color: #007BFF;
+            background-color: #007bff;
             color: #fff;
             border: none;
             cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
-        button:hover {
+        #check-button:hover {
             background-color: #0056b3;
+        }
+
+        #result {
+            font-size: 18px;
+            color: green;
+            margin-top: 10px;
+        }
+
+        #animation-container {
+            margin-top: 20px;
+        }
+
+        .bar {
+            display: inline-block;
+            width: 20px;
+            background-color: #007bff;
+            margin-right: 2px;
+            transition: height 0.3s;
+        }
+
+        #explanation {
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
         }
     </style>
 </head>
-
 <body>
-    <div id="quiz-container">
-        <div class="question">Question 1: The half-life of a radioactive element is 5730 years. If a fossil contains 64
-            grams of it at time t=0, how much remains at time 17190 years?</div>
-        <div class="answer">
-            <input type="radio" name="q1" value="A"> A. 16 grams
-        </div>
-        <div class="answer">
-            <input type="radio" name="q1" value="B"> B. 8 grams
-        </div>
-        <div class="answer">
-            <input type="radio" name="q1" value="C"> C. 4 grams
-        </div>
+   
+    <div id="container">
+        <h1> Lets Start playing <i class="fas fa-star"></i></h1>
+<div id="explanation">
 
-        <div class="question">Question 2: 300g of an unknown radioactive substance decays to 112g after 180 seconds.
-            What is the half-life of this substance?</div>
-        <div class="answer">
-            <input type="radio" name="q2" value="A"> A. 60.8 seconds
-        </div>
-        <div class="answer">
-            <input type="radio" name="q2" value="B"> B. 110.5 seconds
-        </div>
-        <div class="answer">
-            <input type="radio" name="q2" value="C"> C. 126.6 seconds
-        </div>
-
-        <div class="question">Question 3: A nuclear reactor produces 20g of uranium-232. If the half-life of uranium is
-            about 70 years, how long will it take to decay to 0.1kg?</div>
-        <div class="answer">
-            <input type="radio" name="q3" value="A"> A. 633 years
-        </div>
-        <div class="answer">
-            <input type="radio" name="q3" value="B"> B. 535 years
-        </div>
-        <div class="answer">
-            <input type="radio" name="q3" value="C"> C. 256 years
-        </div>
-
-        <button onclick="calculateScore()">Submit</button>
-      
-
-        <div id="score-container">
-            <h4 id="scorree" style="display: none;"></h4>
-            <button id="start_again" style="align-content: center; display: none;">Start Again</button>
-    
-        </div>
-    
+</div>
+  
+    <div id="guess-container">
+        <input type="text" id="guess" placeholder="Enter your name">
+        <button id="check-button">Start</button>
     </div>
-
-    <script>
-        // Get the URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-
-        // Get the value of the "name" parameter
-        const name = urlParams.get('name');
-
-        function calculateScore() {
-            let score = 0;
-
-            // Question 1
-            const q1Answer = document.querySelector('input[name="q1"]:checked').value;
-            if (q1Answer === 'B') {
-                score++;
-            }
-
-            // Question 2
-            const q2Answer = document.querySelector('input[name="q2"]:checked').value;
-            if (q2Answer === 'C') {
-                score++;
-            }
-
-            // Question 3
-            const q3Answer = document.querySelector('input[name="q3"]:checked').value;
-            if (q3Answer === 'B') {
-                score++;
-            }
-
-            // Display the score
-           // const scoreContainer = document.getElementById('score-container');
-            //scoreContainer.textContent = `${name} your Score : ${score}/3`;
-            document.getElementById("scorree").style.display ="block";
-            document.getElementById("scorree").textContent= `${name} your Score : ${score}/3`
-            document.getElementById("start_again").style.display ="block";
-
-
-        }
-        document.getElementById("start_again").addEventListener("click", function(){
-
-        window.location.href = `hello.html`
-    })
-    </script>
+</div>
 </body>
-
-</html>
+<script>
+    document.getElementById("check-button").addEventListener("click", function(){
+        name= document.getElementById("guess").value;
+        window.location.href = `index.html?name=${name}`
+    })
+    
+</script>
